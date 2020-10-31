@@ -36,7 +36,7 @@ Usage of tempomail:
     	specify directory to store emails (default "/tmp/1secmails/")
 ```
 
-# Does it need improvement ?
+## Does it need improvement ?
 
 Open an issue.
 
