@@ -41,3 +41,7 @@ Usage of tempomail:
 ## Does it need improvement ?
 
 Open an issue.
+
+## TODO
+
+- Download Attachments
