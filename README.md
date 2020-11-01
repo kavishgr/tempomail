@@ -24,7 +24,7 @@ Download the pre-built binaries for different platforms from the [releases](http
 git clone https://github.com/kavishgr/tempomail.git
 cd tempomail
 go build .
-mv tempomail /usr/local/bin/
+mv tempomail /usr/local/bin/ #OR $HOME/go/bin
 tempomail -h
 ```
 
