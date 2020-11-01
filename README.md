@@ -30,13 +30,15 @@ tempomail -h
 
 # Usage
 
-By default, all emails are saved in **/tmp/1secmails/**. It only has one flag `--path` to specify a directory to store your emails:
+By default, all emails are saved in **/tmp/1secmails/**. It only has only one flag `--path` to specify a directory to store your emails:
 
 ```
 Usage of tempomail:
   -path string
     	specify directory to store emails (default "/tmp/1secmails/")
 ```
+
+Press `CTRL+c` or `SIGTERM` to quit and delete all received emails.
 
 ## Does it need improvement ?
 
