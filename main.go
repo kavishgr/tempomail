@@ -201,10 +201,9 @@ func main() {
 
 	for {
 		checkMail(name, domainOnly)
-		handleInterrupt(name, domainOnly) // while checking for mails
-		incrementMap(response)
+		go handleInterrupt(name, domainOnly)
 		saveMail(name, domainOnly)
-		handleInterrupt(name, domainOnly) // after receiving mails
+		// handleInterrupt(name, domainOnly) // after receiving mails(not needed)
 		time.Sleep(5 * time.Second)
 	}
 
