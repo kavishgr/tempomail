@@ -126,17 +126,15 @@ func deleteMail(name, domainOnly string) error {
 func handleInterrupt(name, domainOnly string) {
 	signalChannel := make(chan os.Signal)
 	signal.Notify(signalChannel, os.Interrupt, syscall.SIGTERM)
-	go func() {
-		<-signalChannel
-		deleteMail(name, domainOnly)
-		err := os.RemoveAll(path)
-		if err != nil {
-			log.Fatal(err)
-		}
-		clear()
-		fmt.Println("Emails Deleted. Exiting.")
-		os.Exit(0)
-	}()
+	<-signalChannel
+	deleteMail(name, domainOnly)
+	err := os.RemoveAll(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+	clear()
+	// fmt.Println("Emails Deleted. Exiting.")
+	// os.Exit(0)
 }
 
 func verifyName() string {
