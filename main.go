@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"io/ioutil"
+	"io"
+	"path/filepath"
 	"log"
 	"math/rand"
 	"net/http"
@@ -82,6 +84,23 @@ func checkMail(name string, domainOnly string) int {
 	return numOfEmails
 }
 
+// DELETE --------------- --------------- ---------------
+
+func downloadFile(URL, filename string) { // api url & attachment
+
+	response, _ := http.Get(URL)
+	defer response.Body.Close()
+	newfile := filepath.Join(path, filename)
+	file, _ := os.Create(newfile)
+
+	defer file.Close()
+
+	_, _ = io.Copy(file, response.Body)
+	return
+}
+
+// DELETE --------------- --------------- ---------------
+
 func saveMail(name, domainOnly string) { //use this function to save emails
 
 	for k, _ := range m {
@@ -93,7 +112,14 @@ func saveMail(name, domainOnly string) { //use this function to save emails
 			resp.Body.Close()
 			var recvmail CheckMailTemplate
 			err := json.Unmarshal([]byte(body), &recvmail)
+			// DELETE --------------- --------------- ---------------
 			// attachment := recvmail.Attachments[0].Filename
+			if recvmail.Attachments[0].Filename != ""{
+				attachment := recvmail.Attachments[0].Filename
+				url := fmt.Sprintf("https://www.1secmail.com/api/v1/?action=download&login=%v&domain=%v&id=%v&file=%v", name, domainOnly, k, attachment)
+				downloadFile(url, attachment)
+			}
+			// DELETE --------------- --------------- ---------------
 			if err != nil {
 				fmt.Println(err)
 				os.Exit(1)
@@ -126,15 +152,17 @@ func deleteMail(name, domainOnly string) error {
 func handleInterrupt(name, domainOnly string) {
 	signalChannel := make(chan os.Signal)
 	signal.Notify(signalChannel, os.Interrupt, syscall.SIGTERM)
-	<-signalChannel
-	deleteMail(name, domainOnly)
-	err := os.RemoveAll(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-	clear()
-	// fmt.Println("Emails Deleted. Exiting.")
-	// os.Exit(0)
+	go func() {
+		<-signalChannel
+		deleteMail(name, domainOnly)
+		err := os.RemoveAll(path)
+		if err != nil {
+			log.Fatal(err)
+		}
+		clear()
+		fmt.Println("Emails Deleted. Exiting.")
+		os.Exit(0)
+	}()
 }
 
 func verifyName() string {
@@ -196,12 +224,14 @@ func main() {
 	fmt.Printf("Your Temporary Email: %v\n", printName)
 	fmt.Println("Mailbox content is refreshed automatically every 5 seconds.")
 	fmt.Printf("All Emails are saved in %v\n", path)
+	handleInterrupt(name, domainOnly) // goroutine
 
 	for {
 		checkMail(name, domainOnly)
-		go handleInterrupt(name, domainOnly)
+		// handleInterrupt(name, domainOnly) // while checking for mails
+		incrementMap(response)
 		saveMail(name, domainOnly)
-		// handleInterrupt(name, domainOnly) // after receiving mails(not needed)
+		// handleInterrupt(name, domainOnly) // after receiving mails
 		time.Sleep(5 * time.Second)
 	}
 
