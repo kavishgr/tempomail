@@ -84,22 +84,6 @@ func checkMail(name string, domainOnly string) int {
 	return numOfEmails
 }
 
-// DELETE --------------- --------------- ---------------
-
-func downloadFile(URL, filename string) { // api url & attachment
-
-	response, _ := http.Get(URL)
-	defer response.Body.Close()
-	newfile := filepath.Join(path, filename)
-	file, _ := os.Create(newfile)
-
-	defer file.Close()
-
-	_, _ = io.Copy(file, response.Body)
-	return
-}
-
-// DELETE --------------- --------------- ---------------
 
 func saveMail(name, domainOnly string) { //use this function to save emails
 
@@ -112,14 +96,6 @@ func saveMail(name, domainOnly string) { //use this function to save emails
 			resp.Body.Close()
 			var recvmail CheckMailTemplate
 			err := json.Unmarshal([]byte(body), &recvmail)
-			// DELETE --------------- --------------- ---------------
-			// attachment := recvmail.Attachments[0].Filename
-			if recvmail.Attachments[0].Filename != ""{
-				attachment := recvmail.Attachments[0].Filename
-				url := fmt.Sprintf("https://www.1secmail.com/api/v1/?action=download&login=%v&domain=%v&id=%v&file=%v", name, domainOnly, k, attachment)
-				downloadFile(url, attachment)
-			}
-			// DELETE --------------- --------------- ---------------
 			if err != nil {
 				fmt.Println(err)
 				os.Exit(1)
