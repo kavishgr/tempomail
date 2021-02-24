@@ -40,7 +40,7 @@ Usage of tempomail:
     	specify directory to store emails (default "/tmp/1secmails/")
 ```
 
-Press `CTRL+c` or `SIGTERM` to quit and delete all received emails.
+Press `CTRL+c` or `SIGTERM` to quit and all emails will be deleted.
 
 ## Does it need improvement ?
 
@@ -48,5 +48,5 @@ Open an issue.
 
 ## TODO
 
-- Download Attachments
-- Parse formatted emails
+- Download Attachments[in progress]
+- Parse formatted emails[maybe in the future]
