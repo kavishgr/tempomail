@@ -1,3 +1,5 @@
+> NOTE: **I'm refactoring the code with an interactive user interface. All emails will be encrypted with Protonmail's PGP. There will be an option to use a DarkWeb disposible email service through the TOR network. Stay tuned!**
+
 # tempomail
 
 **`tempomail`** is a standalone binary that allows you to create a temporary `email address` in **1 Second** and receive emails. It uses 1secmail's [API](https://www.1secmail.com/api/). No dependencies required!
