@@ -1,4 +1,4 @@
-> NOTE: **I'm refactoring the code with an interactive user interface. All emails will be encrypted with Protonmail's PGP. There will be an option to use a DarkWeb disposible email service on the TOR network. Stay tuned!**
+> NOTE: **Currently writing an interactive user interface. All emails will be encrypted with Protonmail's PGP. There will be an option to use a DarkWeb disposible email service on the TOR network. Stay tuned!**
 
 # tempomail
 
