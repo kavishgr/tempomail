@@ -1,4 +1,4 @@
-> NOTE: **Currently writing an interactive user interface. All emails will be encrypted with Protonmail's PGP. There will be an option to use a DarkWeb disposible email service on the TOR network. Stay tuned!**
+> NOTE: **"No longer maintained. I don't know where to start with this repository. The Go code here is of poor quality. I was just learning back then."**
 
 # tempomail
 
